@@ -1,0 +1,104 @@
+.board {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(240px, 1fr));
+  gap: var(--space-4);
+  align-items: start;
+  overflow-x: auto;
+  padding-bottom: var(--space-4);
+}
+
+.column {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-top: 2px solid var(--col-color);
+  border-radius: var(--radius-lg);
+  min-height: 220px;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+.over {
+  background: color-mix(in srgb, var(--col-color) 8%, var(--bg-surface));
+  border-color: var(--col-color);
+}
+
+.colHead {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+}
+.colDot { width: 8px; height: 8px; border-radius: 50%; background: var(--col-color); }
+.colTitle { font-size: 13px; font-weight: 700; letter-spacing: 0; }
+.colCount {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--bg-card);
+  padding: 0 7px;
+  border-radius: var(--radius-full);
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: 0 var(--space-3) var(--space-3);
+}
+
+.card {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border-muted);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-4);
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+.card[draggable='true'] { cursor: grab; }
+.card:hover { border-color: var(--border-default); box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.active { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.dragging { opacity: 0.4; transform: rotate(1.5deg); }
+
+.prio {
+  position: absolute;
+  left: 0;
+  top: 10px;
+  bottom: 10px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+}
+
+.cardTitle {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.cardCategory { margin-top: 2px; font-size: 11.5px; color: var(--text-muted); }
+
+.cardFoot {
+  margin-top: var(--space-3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+.footLeft { display: inline-flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; font-size: 11px; color: var(--text-muted); }
+.footIcon { display: inline-flex; align-items: center; gap: 3px; }
+
+.due_overdue { color: var(--color-danger); font-weight: 600; }
+.due_today   { color: var(--status-resolved); font-weight: 600; }
+.due_soon    { color: var(--priority-medium); }
+
+.emptyCol {
+  padding: var(--space-6) var(--space-3);
+  border: 1.5px dashed var(--border-muted);
+  border-radius: var(--radius-md);
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+}

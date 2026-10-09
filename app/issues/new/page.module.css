@@ -1,0 +1,239 @@
+.main { padding-bottom: var(--space-16); }
+
+.container { padding-top: var(--space-8); }
+
+/* ── Header ── */
+.header { margin-bottom: var(--space-6); }
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 13px;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  padding: 4px 0;
+  margin-bottom: var(--space-4);
+  transition: color var(--transition-fast);
+}
+.backBtn:hover { color: var(--text-secondary); }
+
+.title {
+  font-size: clamp(1.375rem, 2.5vw, 1.75rem);
+  font-weight: 800;
+  margin-bottom: var(--space-1);
+}
+
+.subtitle { font-size: 13.5px; color: var(--text-muted); }
+
+/* ── Form Layout ── */
+.formLayout {
+  display: grid;
+  grid-template-columns: 1fr 288px;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+.formMain {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  position: sticky;
+  top: calc(var(--navbar-h) + var(--space-5));
+}
+
+/* ── Sections ── */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.sectionHead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.sectionTitle {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.optional {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.sectionDesc { font-size: 12.5px; color: var(--text-muted); line-height: 1.55; }
+
+/* ── Fields ── */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.required { color: var(--priority-critical); }
+
+.fieldFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.hint { font-size: 11.5px; color: var(--text-muted); }
+
+.charCount {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+
+.charCountWarn { color: var(--priority-high); }
+
+/* ── Priority Selector ── */
+.priorityGrid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.priorityOption {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.priorityOption:hover {
+  border-color: var(--border-muted);
+  background: var(--bg-hover);
+}
+
+.prioritySelected {
+  border-color: var(--prio-color, var(--accent)) !important;
+  background: color-mix(in srgb, var(--prio-color, var(--accent)) 8%, transparent) !important;
+}
+
+.hiddenRadio { display: none; }
+
+.priorityRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.priorityDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--prio-color, var(--border-muted));
+  flex-shrink: 0;
+}
+
+.priorityLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.priorityDesc {
+  font-size: 11px;
+  color: var(--text-muted);
+  padding-left: calc(10px + var(--space-2));
+  line-height: 1.4;
+}
+
+/* ── Checklist ── */
+.checklist {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.checklist li {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  transition: color var(--transition-fast);
+}
+
+.checklist li::before {
+  content: '';
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-muted);
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+}
+
+.checkDone {
+  color: var(--color-success) !important;
+}
+
+.checkDone::before {
+  border-color: var(--color-success) !important;
+  background: var(--color-success) !important;
+  /* Checkmark via box shadow trick */
+  box-shadow: inset 0 0 0 2px var(--bg-card);
+}
+
+/* ── Submit ── */
+.submitSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.submitHint {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.55;
+}
+
+.spinner {
+  width: 13px; height: 13px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .formLayout { grid-template-columns: 1fr; }
+  .sidebar    { position: static; }
+  .priorityGrid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 480px) {
+  .priorityGrid { grid-template-columns: 1fr; }
+}

@@ -9,11 +9,18 @@ export async function GET(req: NextRequest) {
 
   await connectDB();
 
-  const techUsers = await User.find({ role: { $in: ['tech', 'admin'] } })
-    .select('name email department role')
+  // Admin sees all users; tech sees only tech members (for assignment)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const query: Record<string, any> = (user.role === 'admin')
+    ? {}
+    : { role: { $in: ['tech', 'admin'] } };
+
+  const users = await User.find(query)
+    .select('name email department role createdAt')
+    .sort({ createdAt: -1 })
     .lean();
 
-  return NextResponse.json({ users: techUsers });
+  return NextResponse.json({ users });
 }
 
 export async function PATCH(req: NextRequest) {

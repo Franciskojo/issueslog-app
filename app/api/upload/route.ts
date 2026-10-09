@@ -3,8 +3,6 @@ import { writeFile, mkdir } from 'fs/promises';
 import path from 'path';
 import { getSession, unauthorized } from '@/lib/session';
 
-export const config = { api: { bodyParser: false } };
-
 export async function POST(req: NextRequest) {
   const user = await getSession();
   if (!user) return unauthorized();

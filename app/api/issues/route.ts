@@ -27,7 +27,7 @@ export async function GET(req: NextRequest) {
 
   if (status && status !== 'all') query.status = status;
   if (priority && priority !== 'all') query.priority = priority;
-  if (assignedTo) query.assignedTo = assignedTo;
+  if (assignedTo) query.assignedTo = assignedTo === 'me' ? user.id : assignedTo;
   if (search) {
     query.$or = [
       { title: { $regex: search, $options: 'i' } },
@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const body = await req.json();
-    const { title, description, priority, category, attachments } = body;
+    const { title, description, priority, category, attachments, dueDate } = body;
 
     if (!title || !description || !priority || !category) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
@@ -68,6 +68,7 @@ export async function POST(req: NextRequest) {
       submittedByName: user.name,
       submittedByDepartment: user.department,
       attachments: attachments || [],
+      dueDate: dueDate ? new Date(dueDate) : undefined,
       statusHistory: [{ status: 'open', changedBy: user.name, changedAt: new Date() }],
     });
 

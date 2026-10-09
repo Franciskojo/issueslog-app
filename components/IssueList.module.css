@@ -1,0 +1,166 @@
+.list {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+/* Shared column template */
+.row {
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) 170px 120px 110px 130px;
+  align-items: center;
+  column-gap: var(--space-3);
+  padding: 0 var(--space-4);
+}
+
+.head {
+  height: 34px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-elevated);
+}
+
+.group + .group { border-top: 1px solid var(--border-subtle); }
+
+.groupHead {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: 10px var(--space-4);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 700;
+  text-align: left;
+}
+.groupHead:hover { background: var(--bg-hover); }
+
+.caret { color: var(--text-muted); transition: transform var(--transition-fast); }
+.caretClosed { transform: rotate(-90deg); }
+
+.groupDot { width: 8px; height: 8px; border-radius: 50%; }
+.groupCount {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--bg-card);
+  padding: 0 7px;
+  border-radius: var(--radius-full);
+}
+
+.item {
+  min-height: 44px;
+  border-top: 1px solid var(--border-subtle);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+.item:hover { background: var(--bg-hover); }
+.active { background: var(--bg-active) !important; box-shadow: inset 2px 0 0 var(--accent); }
+
+.nameCell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+  padding: 8px 0;
+}
+
+.check {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-default);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 800;
+  color: transparent;
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+}
+.checkDone { background: var(--status-resolved); border-color: var(--status-resolved); color: #fff; }
+
+.title {
+  min-width: 0;
+  flex: 0 1 auto;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--text-primary);
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.title:hover { text-decoration: underline; text-underline-offset: 3px; }
+.done .title { color: var(--text-muted); text-decoration: line-through; }
+
+.meta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.metaIcon { display: inline-flex; align-items: center; gap: 3px; }
+
+.cell { min-width: 0; display: flex; align-items: center; }
+
+/* Wrapper for cells that hide a native control on top of a visual label */
+.assignee, .due {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  max-width: 100%;
+  margin: 0;
+  padding: 3px 6px;
+  margin-left: -6px;
+  border-radius: var(--radius-sm);
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--text-secondary);
+}
+.editable { cursor: pointer; }
+.editable:hover { background: var(--bg-card); outline: 1px solid var(--border-muted); }
+.editable:focus-within { outline: 2px solid var(--accent); }
+
+.assigneeName { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-primary); }
+.unassigned { color: var(--text-muted); }
+
+.due_overdue { color: var(--color-danger); font-weight: 600; }
+.due_today   { color: var(--status-resolved); font-weight: 600; }
+.due_soon    { color: var(--priority-medium); }
+
+.overlaySelect {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  padding: 0;
+  border: 0;
+}
+
+@media (max-width: 900px) {
+  .row { grid-template-columns: minmax(0, 1fr) 100px 110px; }
+  .row > :nth-child(2),
+  .row > :nth-child(3) { display: none; }
+}

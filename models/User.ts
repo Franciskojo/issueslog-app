@@ -25,16 +25,19 @@ const UserSchema = new Schema<IUser>(
 );
 
 // Hash password before saving
-UserSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) return next();
+UserSchema.pre('save', async function () {
+  if (!this.isModified('password')) return;
   const salt = await bcrypt.genSalt(12);
   this.password = await bcrypt.hash(this.password, salt);
-  next();
 });
 
 UserSchema.methods.comparePassword = async function (candidate: string): Promise<boolean> {
-  return bcrypt.compare(candidate, this.password);
+  return bcrypt.compare(candidate, this.password as string);
 };
+
+if (process.env.NODE_ENV === 'development' && mongoose.models.User) {
+  delete (mongoose.models as Record<string, unknown>).User;
+}
 
 const User: Model<IUser> = mongoose.models.User || mongoose.model<IUser>('User', UserSchema);
 export default User;

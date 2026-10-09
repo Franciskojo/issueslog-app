@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
+import mongoose from 'mongoose';
 import connectDB from '@/lib/mongodb';
 import Issue from '@/models/Issue';
 import { getSession, unauthorized } from '@/lib/session';
 
-export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const user = await getSession();
   if (!user) return unauthorized();
 
@@ -13,9 +14,15 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
       return NextResponse.json({ error: 'Comment message is required' }, { status: 400 });
     }
 
+    const { id } = await params;
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+      return NextResponse.json({ error: 'Invalid issue ID' }, { status: 400 });
+    }
+
     await connectDB();
 
-    const issue = await Issue.findById(params.id);
+    const issue = await Issue.findById(id);
+
     if (!issue) return NextResponse.json({ error: 'Issue not found' }, { status: 404 });
 
     issue.comments.push({

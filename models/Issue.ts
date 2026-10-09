@@ -32,6 +32,7 @@ export interface IIssue extends Document {
   submittedByDepartment: string;
   assignedTo?: Types.ObjectId;
   assignedToName?: string;
+  dueDate?: Date;
   comments: IComment[];
   attachments: IAttachment[];
   statusHistory: { status: IssueStatus; changedBy: string; changedAt: Date }[];
@@ -83,6 +84,7 @@ const IssueSchema = new Schema<IIssue>(
     submittedByDepartment: { type: String, required: true },
     assignedTo: { type: Schema.Types.ObjectId, ref: 'User' },
     assignedToName: { type: String },
+    dueDate: { type: Date },
     comments: [CommentSchema],
     attachments: [AttachmentSchema],
     statusHistory: [StatusHistorySchema],
@@ -94,6 +96,7 @@ const IssueSchema = new Schema<IIssue>(
 IssueSchema.index({ status: 1, priority: 1, createdAt: -1 });
 IssueSchema.index({ submittedBy: 1, createdAt: -1 });
 IssueSchema.index({ assignedTo: 1, status: 1 });
+IssueSchema.index({ dueDate: 1 });
 
 const Issue: Model<IIssue> = mongoose.models.Issue || mongoose.model<IIssue>('Issue', IssueSchema);
 export default Issue;

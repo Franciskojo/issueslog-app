@@ -1,0 +1,213 @@
+/* ── Same split-panel layout as login ── */
+.page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 55% 45%;
+}
+
+/* ── Brand panel (same as login) ── */
+.brandPanel {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-surface);
+  display: flex;
+  align-items: stretch;
+}
+
+.brandBg { position: absolute; inset: 0; pointer-events: none; }
+
+.orb1, .orb2 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  animation: float 10s ease-in-out infinite;
+}
+.orb1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(120,87,255,0.18) 0%, transparent 70%);
+  top: -100px; right: -80px;
+}
+.orb2 {
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, rgba(168,85,247,0.12) 0%, transparent 70%);
+  bottom: -60px; left: -60px;
+  animation-delay: -5s; animation-duration: 14s;
+}
+
+.grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+}
+
+.brandContent {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column;
+  justify-content: center;
+  gap: var(--space-10);
+  padding: var(--space-16) var(--space-12);
+  width: 100%;
+  animation: fadeIn 0.6s ease;
+}
+
+.brandLogo { display: flex; align-items: center; gap: 10px; }
+.brandLogoIcon {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: linear-gradient(135deg, var(--accent) 0%, #a855f7 100%);
+  display: flex; align-items: center; justify-content: center;
+  color: white; box-shadow: var(--shadow-accent);
+}
+.brandLogoText { font-size: 22px; font-weight: 800; color: var(--text-primary); letter-spacing: -0.03em; }
+.brandLogoText span { color: var(--accent-light); }
+
+.brandHeadline { display: flex; flex-direction: column; gap: var(--space-4); }
+.brandTitle {
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  font-weight: 800; color: var(--text-primary);
+  line-height: 1.15; letter-spacing: -0.035em;
+}
+.brandTitleAccent {
+  background: linear-gradient(130deg, var(--accent-light) 0%, #c084fc 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.brandDesc { font-size: 15px; color: var(--text-secondary); line-height: 1.7; max-width: 380px; }
+
+.features { display: flex; flex-direction: column; gap: var(--space-5); }
+.feature  { display: flex; align-items: flex-start; gap: var(--space-4); }
+.featureIcon {
+  width: 36px; height: 36px; border-radius: var(--radius-md);
+  background: var(--bg-card); border: 1px solid var(--border-subtle);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--accent-light); flex-shrink: 0; margin-top: 1px;
+}
+.featureTitle { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 3px; }
+.featureDesc  { font-size: 12.5px; color: var(--text-muted); line-height: 1.55; }
+
+.brandBadge {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 6px 12px;
+  background: rgba(120,87,255,0.08); border: 1px solid var(--border-accent);
+  border-radius: var(--radius-full);
+  color: var(--accent-lighter); font-size: 12px; font-weight: 500; width: fit-content;
+}
+
+/* ── Auth panel ── */
+.authPanel {
+  display: flex; flex-direction: column;
+  background: var(--bg-base);
+  border-left: 1px solid var(--border-subtle);
+}
+
+.authContent {
+  flex: 1;
+  display: flex; flex-direction: column;
+  justify-content: center;
+  padding: var(--space-10) var(--space-12);
+  max-width: 480px; margin: 0 auto; width: 100%;
+}
+
+.mobileLogo {
+  display: none; align-items: center; gap: 8px;
+  font-size: 17px; font-weight: 800; color: var(--text-primary);
+  letter-spacing: -0.03em; margin-bottom: var(--space-8);
+}
+.mobileLogoIcon {
+  width: 30px; height: 30px; border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--accent) 0%, #a855f7 100%);
+  display: flex; align-items: center; justify-content: center; color: white;
+}
+
+.authHeader { margin-bottom: var(--space-6); }
+.authTitle  { font-size: 1.5rem; font-weight: 800; color: var(--text-primary); margin-bottom: var(--space-1); }
+.authSubtitle { font-size: 13.5px; color: var(--text-muted); }
+
+.form { display: flex; flex-direction: column; gap: var(--space-4); }
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.field { display: flex; flex-direction: column; gap: var(--space-1); }
+
+.inputWrapper { position: relative; display: flex; align-items: center; }
+.inputIcon { position: absolute; left: 11px; color: var(--text-muted); pointer-events: none; display: flex; }
+
+.inputWithIcon  { padding-left: 34px !important; }
+.inputWithAction { padding-right: 38px !important; }
+
+.eyeBtn {
+  position: absolute; right: 10px;
+  background: none; border: none; color: var(--text-muted);
+  cursor: pointer; padding: 3px; border-radius: var(--radius-sm); display: flex;
+  transition: color var(--transition-fast);
+}
+.eyeBtn:hover { color: var(--text-secondary); }
+
+/* ── Password strength ── */
+.strength {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: 5px;
+}
+
+.strengthBars {
+  display: flex;
+  gap: 3px;
+  flex: 1;
+}
+
+.strengthBar {
+  height: 3px;
+  flex: 1;
+  border-radius: var(--radius-full);
+  transition: background var(--transition-base);
+}
+
+.strengthLabel {
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: color var(--transition-base);
+}
+
+.submitBtn { width: 100%; padding: 10px; font-size: 14px; }
+
+.spinner {
+  width: 13px; height: 13px;
+  border: 2px solid rgba(255,255,255,0.3); border-top-color: white;
+  border-radius: 50%; animation: spin 0.7s linear infinite; display: inline-block;
+}
+
+.loginLink {
+  text-align: center; font-size: 13px;
+  color: var(--text-muted); margin-top: var(--space-5);
+}
+.loginLink a { color: var(--accent-light); font-weight: 500; }
+
+.authFooter {
+  padding: var(--space-5) var(--space-12);
+  display: flex; align-items: center; gap: var(--space-2);
+  font-size: 11px; color: var(--text-faint);
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .page       { grid-template-columns: 1fr; }
+  .brandPanel { display: none; }
+  .authPanel  { border-left: none; }
+  .authContent { padding: var(--space-8) var(--space-6); }
+  .mobileLogo  { display: flex; }
+}
+
+@media (max-width: 540px) {
+  .row        { grid-template-columns: 1fr; }
+  .authContent { padding: var(--space-6) var(--space-4); }
+  .authFooter  { padding: var(--space-4); }
+}

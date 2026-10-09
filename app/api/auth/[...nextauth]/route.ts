@@ -1,6 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { handlers } from 'next-auth/next';
+import NextAuth from 'next-auth';
 import { authOptions } from '@/lib/auth';
 
-const { GET, POST } = handlers(authOptions);
-export { GET, POST };
+const handler = NextAuth(authOptions);
+export { handler as GET, handler as POST };
